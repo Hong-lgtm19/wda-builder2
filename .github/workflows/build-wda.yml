@@ -1,16 +1,3 @@
-name: Build WebDriverAgent IPA
-on:
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Checkout WDA
-        run: git clone https://github.com/appium/WebDriverAgent.git
-
       - name: Build WDA
         run: |
           cd WebDriverAgent
@@ -19,18 +6,5 @@ jobs:
             -scheme WebDriverAgentRunner \
             -sdk iphoneos \
             -configuration Release \
-            -derivedDataPath build
-
-      - name: Package IPA
-        run: |
-          cd WebDriverAgent/build/Build/Products/Release-iphoneos
-          mkdir Payload
-          cp -r WebDriverAgentRunner-Runner.app Payload/
-          zip -r ../WebDriverAgent.ipa Payload
-          mv ../WebDriverAgent.ipa $GITHUB_WORKSPACE/
-
-      - name: Upload IPA
-        uses: actions/upload-artifact@v4
-        with:
-          name: WebDriverAgent-IPA
-          path: WebDriverAgent.ipa
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO
