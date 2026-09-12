@@ -8,8 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app
+      - name: Checkout WDA
+        run: git clone https://github.com/appium/WebDriverAgent.git
 
       - name: Build WDA
         run: |
