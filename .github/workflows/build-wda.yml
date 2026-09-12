@@ -1,15 +1,15 @@
-name: Build WebDriverAgent IPA (iOS 13)
+name: Build WebDriverAgent IPA
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Checkout WDA old version
-        run: git clone --branch 1.0.0 --depth 1 https://github.com/appium/WebDriverAgent.git
+      - name: Checkout WDA v2.21.0 (iOS 13 compatible)
+        run: git clone --branch v2.21.0 --depth 1 https://github.com/appium/WebDriverAgent.git
 
       - name: Build WDA
         run: |
@@ -33,5 +33,5 @@ jobs:
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: WebDriverAgent-iOS13
+          name: WebDriverAgent-iOS13-old
           path: WebDriverAgent.ipa
